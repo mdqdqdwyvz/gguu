@@ -1,10 +1,3 @@
-const LineAPI = require('./api');
-const request = require('request');
-const fs = require('fs');
-const unirest = require('unirest');
-const webp = require('webp-converter');
-const rp = require('request-promise');
-const config = require('./config');
 const Command = require('./command');
 const { Message, OpType, Location, Profile } = require('../curve-thrift/line_types');
 
