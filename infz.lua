@@ -1,3 +1,9 @@
+--[[
+Created by Jaff
+Hi there this requires at least 5 braincells to use
+Feel Free to use the functions for your own use
+I already Listed the functions usage so edit it if you want
+]]
 repeat wait() until game:IsLoaded()
 
 task.spawn(function()  -- Hides name for yters (not sure if its Fe)
@@ -28,7 +34,6 @@ end
 end
 
 local function place() -- place function if there is another erwin on the map
-if game:GetService("Workspace")["_wave_num"].Value < getgenv().wavetolose then
 for i, v in next, game:GetService("Workspace")["_UNITS"]:GetChildren() do
     if v.Name == getgenv().unit then
         local args = {
@@ -37,20 +42,33 @@ for i, v in next, game:GetService("Workspace")["_UNITS"]:GetChildren() do
 }
 
 game:GetService("ReplicatedStorage").endpoints.client_to_server.spawn_unit:InvokeServer(unpack(args))
-end
+task.wait(.1)
+local args = {
+    [1] = v._stats.uuid.Value,
+    [2] = CFrame.new(-2944.968017578125, 91.80620574951172, -698.81396484375) * CFrame.Angles(0, -0, -0)
+}
+
+game:GetService("ReplicatedStorage").endpoints.client_to_server.spawn_unit:InvokeServer(unpack(args))
+task.wait(.1)
+local args = {
+    [1] = v._stats.uuid.Value,
+    [2] = CFrame.new(-2947.109130859375, 91.80620574951172, -698.6688842773438) * CFrame.Angles(0, -0, -0)
+}
+
+game:GetService("ReplicatedStorage").endpoints.client_to_server.spawn_unit:InvokeServer(unpack(args))
+
 end
 end
 end
 
-local function place3() 
-  if game:GetService("Workspace")["_wave_num"].Value < getgenv().wavetolose then
+local function place3() -- place down erwin so the other place functions can work
         local args = {
     [1] = getgenv().id,
     [2] = CFrame.new(-2949.064453125, 91.80620574951172, -698.9860229492188) * CFrame.Angles(0, -0, -0)
 }
 
 game:GetService("ReplicatedStorage").endpoints.client_to_server.spawn_unit:InvokeServer(unpack(args))
-end
+
 end
 
 
@@ -58,7 +76,7 @@ end
 local function upgrade() -- Upgrades to upgrade 5 and auto upgrades lowest upgraded unit
 for i, v in next, game:GetService("Workspace")["_UNITS"]:GetChildren() do
     if v.Name == getgenv().unit then
-        if v._stats.upgrade.Value < 20 then 
+        if v._stats.upgrade.Value < 10 then 
 local args = {
 [1] = v
   }
@@ -70,57 +88,10 @@ end
 
 local function join() -- join teleporter
 local args = {
-    [1] = "_lobbytemplategreen6"
+    [1] = "_lobbytemplategreen11"
 }
 
 game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
-end
-
-local function Create() -- Creates the map
-local args = {
-    [1] = "_lobbytemplategreen6",
-    [2] = "namek_infinite",
-    [3] = true,
-    [4] = "Hard"
-}
-
-game:GetService("ReplicatedStorage").endpoints.client_to_server.request_lock_level:InvokeServer(unpack(args))
-
-end
-
-local function start2() -- Starts the teleport
-local args = {
-    [1] = "_lobbytemplategreen6"
-}
-
-game:GetService("ReplicatedStorage").endpoints.client_to_server.request_start_game:InvokeServer(unpack(args))
-end
-
-
-local function webhook()
-local data = {
-   ["content"] = "",
-   ["embeds"] = {
-       {
-           ["title"] = "**Anime Adventures Inf**",
-           ["description"] = "Lost on wave: " .. game:GetService("Workspace")["_wave_num"].Value .. ".  Amount of Gems Earned: " ..game.Players.LocalPlayer.PlayerGui.ResultsUI.Holder.GoldGemXP.GemReward.Main.Amount.Text.. ". Time Taken: " ..game.Players.LocalPlayer.PlayerGui.ResultsUI.Holder.Middle.Timer.Text.. " ",
-                               
-           ["type"] = "rich",
-           ["color"] = tonumber(0x7269da),
-           
-       }
-   }
-}
-local newdata = game:GetService("HttpService"):JSONEncode(data)
-
-local headers = {
-   ["content-type"] = "application/json"
-}
-request = http_request or request or HttpPost or syn.request
-local abcdef = {Url = getgenv().webhook, Body = newdata, Method = "POST", Headers = headers}
-request(abcdef)
-
-
 end
 
 local function sell()
@@ -136,13 +107,50 @@ end
 end
 end
 end
+
+local function Create() -- Creates the map
+local args = {
+    [1] = "_lobbytemplategreen11",
+    [2] = getgenv().act, -- ex 1,2,3 (LOWER THE NUMBER IF ITS TOO HARD)
+    [3] = true,
+    [4] = getgenv().dif --Hard mode for da exp
+}
+
+game:GetService("ReplicatedStorage").endpoints.client_to_server.request_lock_level:InvokeServer(unpack(args))
+
+end
+
+local function start2() -- Starts the teleport
+local args = {
+    [1] = "_lobbytemplategreen11"
+}
+
+game:GetService("ReplicatedStorage").endpoints.client_to_server.request_start_game:InvokeServer(unpack(args))
+end
+
+
+
+local function place2() -- Places erwin until wave 5
+    while getgenv().wavecount do
+if game:GetService("Workspace")["_wave_num"].Value < 5 then 
+    getgenv().wavecount = true
+        task.wait()
+        place3()
+elseif game:GetService("Workspace")["_wave_num"].Value > 5 then
+    getgenv().wavecount = false
+    end
+    end
+    end
+
+
+
 local function teleport() 
 if game:GetService("Workspace")["_DATA"].GameFinished.Value == true then
 task.wait(5)
-webhook()
 game:GetService("ReplicatedStorage").endpoints.client_to_server.teleport_back_to_lobby:InvokeServer()
 end
 end
+
 
 if game.PlaceId == 8304191830 then
 while true do
@@ -175,6 +183,7 @@ else
 task.wait()
 place()
 place3()
+place2()
 upgrade()
 start()
 sell()
