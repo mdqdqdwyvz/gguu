@@ -19,8 +19,17 @@ end)
 
 local function WatermarkForIdiotYter() -- If the yter is stupid they cant remove this
     game.StarterGui:SetCore("SendNotification", {
-Title = "Made by Jaff"; 
+Title = "Status...";
 Text = getgenv().id.." Is your petid"; 
+Icon = ""; 
+Duration = 5; 
+})
+end
+
+local function WatermarkForIdiotYter2() -- If the yter is stupid they cant remove this
+    game.StarterGui:SetCore("SendNotification", {
+Title = "Status...";
+Text = "Start..."; 
 Icon = ""; 
 Duration = 5; 
 })
@@ -184,6 +193,7 @@ for i,v in pairs(events) do
     end
 end
 else
+WatermarkForIdiotYter2()
 task.wait()
 place()
 place3()
