@@ -6,6 +6,8 @@ I already Listed the functions usage so edit it if you want
 ]]
 repeat wait() until game:IsLoaded()
 
+WatermarkForIdiotYter2()
+
 task.spawn(function()  -- Hides name for yters (not sure if its Fe)
     while task.wait() and getgenv().hidename do
         pcall(function()
@@ -193,7 +195,6 @@ for i,v in pairs(events) do
     end
 end
 else
-WatermarkForIdiotYter2()
 task.wait()
 place()
 place3()
