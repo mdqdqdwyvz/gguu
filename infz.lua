@@ -21,7 +21,7 @@ end)
 
 local function WatermarkForIdiotYter() -- If the yter is stupid they cant remove this
     game.StarterGui:SetCore("SendNotification", {
-Title = "Status...";
+Title = "Status";
 Text = getgenv().id.." Is your petid"; 
 Icon = ""; 
 Duration = 5; 
@@ -30,8 +30,8 @@ end
 
 local function WatermarkForIdiotYter2() -- If the yter is stupid they cant remove this
     game.StarterGui:SetCore("SendNotification", {
-Title = "Status...";
-Text = "Start..."; 
+Title = "Status";
+Text = "Running..."; 
 Icon = ""; 
 Duration = 5; 
 })
