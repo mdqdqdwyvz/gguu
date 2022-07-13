@@ -6,8 +6,6 @@ I already Listed the functions usage so edit it if you want
 ]]
 repeat wait() until game:IsLoaded()
 
-WatermarkForIdiotYter2()
-
 task.spawn(function()  -- Hides name for yters (not sure if its Fe)
     while task.wait() and getgenv().hidename do
         pcall(function()
@@ -23,15 +21,6 @@ local function WatermarkForIdiotYter() -- If the yter is stupid they cant remove
     game.StarterGui:SetCore("SendNotification", {
 Title = "Status";
 Text = getgenv().id.." Is your petid"; 
-Icon = ""; 
-Duration = 5; 
-})
-end
-
-local function WatermarkForIdiotYter2() -- If the yter is stupid they cant remove this
-    game.StarterGui:SetCore("SendNotification", {
-Title = "Status";
-Text = "Running..."; 
 Icon = ""; 
 Duration = 5; 
 })
