@@ -190,7 +190,7 @@ task.wait(1)
 Create()
 task.wait(1)
 start2()
-task.wait(1)
+task.wait()
 WatermarkForIdiotYter()
 task.wait(5)
 end
