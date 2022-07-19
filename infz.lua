@@ -185,12 +185,12 @@ end
 
 if game.PlaceId == 8304191830 then
 while true do
---join()
+join()
 task.wait(1)
 Create()
 task.wait(1)
---start2()
-task.wait()
+start2()
+task.wait(1)
 WatermarkForIdiotYter()
 task.wait(5)
 end
