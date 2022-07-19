@@ -98,6 +98,32 @@ local args = {
 game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
 end
 
+local function webhook()
+local data = {
+   ["content"] = "",
+   ["embeds"] = {
+       {
+           ["title"] = "**Anime Adventures Inf**",
+           ["description"] = "Lost on wave: " .. game:GetService("Workspace")["_wave_num"].Value .. ".  Amount of Gems Earned: " ..game.Players.LocalPlayer.PlayerGui.ResultsUI.Holder.GoldGemXP.GemReward.Main.Amount.Text.. ". Time Taken: " ..game.Players.LocalPlayer.PlayerGui.ResultsUI.Holder.Middle.Timer.Text.. " ",
+                               
+           ["type"] = "rich",
+           ["color"] = tonumber(0x7269da),
+           
+       }
+   }
+}
+local newdata = game:GetService("HttpService"):JSONEncode(data)
+
+local headers = {
+   ["content-type"] = "application/json"
+}
+request = http_request or request or HttpPost or syn.request
+local abcdef = {Url = getgenv().webhook, Body = newdata, Method = "POST", Headers = headers}
+request(abcdef)
+
+
+end
+
 local function sell()
 if game:GetService("Workspace")["_wave_num"].Value > getgenv().wavetolose -1 then
   for i, v in next, game:GetService("Workspace")["_UNITS"]:GetChildren() do
