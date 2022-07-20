@@ -124,6 +124,15 @@ request(abcdef)
 
 end
 
+local function antiafk()
+local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+wait(1)
+vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+end
+
 local function sell()
 if game:GetService("Workspace")["_wave_num"].Value > getgenv().wavetolose -1 then
   for i, v in next, game:GetService("Workspace")["_UNITS"]:GetChildren() do
@@ -212,6 +221,7 @@ for i,v in pairs(events) do
 end
 else
 task.wait()
+antiafk()
 place()
 place3()
 place2()
