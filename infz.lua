@@ -98,30 +98,79 @@ local args = {
 game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
 end
 
+--Webhook sender
 local function webhook()
-local data = {
-   ["content"] = "",
-   ["embeds"] = {
-       {
-           ["title"] = "**Anime Adventures Inf**",
-           ["description"] = "Lost on wave: " .. game:GetService("Workspace")["_wave_num"].Value .. ".  Amount of Gems Earned: " ..game.Players.LocalPlayer.PlayerGui.ResultsUI.Holder.GoldGemXP.GemReward.Main.Amount.Text.. ". Time Taken: " ..game.Players.LocalPlayer.PlayerGui.ResultsUI.Holder.Middle.Timer.Text.. " ",
-                               
-           ["type"] = "rich",
-           ["color"] = tonumber(0x7269da),
-           
-       }
-   }
-}
-local newdata = game:GetService("HttpService"):JSONEncode(data)
+	pcall(function()
+		local url = tostring(getgenv().weburl) --webhook
+		print("webhook?")
+		if url == "" then
+			return
+		end
+			
+    		XP = tostring(game:GetService("Players").LocalPlayer.PlayerGui.ResultsUI.Holder.GoldGemXP.XPReward.Main.Amount.Text)
+		gems = tostring(game:GetService("Players").LocalPlayer.PlayerGui.ResultsUI.Holder.GoldGemXP.GemReward.Main.Amount.Text)
+		cwaves = game:GetService("Players").LocalPlayer.PlayerGui.ResultsUI.Holder.Middle.WavesCompleted.Text
+		ctime = game:GetService("Players").LocalPlayer.PlayerGui.ResultsUI.Holder.Middle.Timer.Text
+		waves = cwaves:split(": ")
+		ttime = ctime:split(": ")
 
-local headers = {
-   ["content-type"] = "application/json"
-}
-request = http_request or request or HttpPost or syn.request
-local abcdef = {Url = getgenv().webhook, Body = newdata, Method = "POST", Headers = headers}
-request(abcdef)
+		local data = {
+			["content"] = "",
+			["username"] = "Anime Adventures",
+			["avatar_url"] = "https://tr.rbxcdn.com/e5b5844fb26df605986b94d87384f5fb/150/150/Image/Jpeg",
+			["embeds"] = {
+				{
+					["author"] = {
+						["name"] = "Anime Adventures | Result ✔",
+						["icon_url"] = "https://cdn.discordapp.com/emojis/997123585476927558.webp?size=96&quality=lossless"
+					},
+					["description"] = "🎮 **"..game:GetService("Players").LocalPlayer.Name.."** 🎮",
+					["color"] = 110335,
 
+					["thumbnail"] = {
+						['url'] = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. game.Players.LocalPlayer.userId .. "&width=420&height=420&format=png"
+					},
 
+					["fields"] = {
+						{
+							["name"] = "Total Waves:",
+							["value"] = tostring(waves[2]) ..
+								" <:wave:997136622363627530>",
+							["inline"] = true
+						}, {
+							["name"] = "Recieved Gems:",
+							["value"] = gems .. " <:gem:997123585476927558>",
+							["inline"] = true
+						}, {
+                            ["name"] = "Recieved XP:",
+                            ["value"] = XP .. " 🧪",
+                            ["inline"] = true
+                        }, {
+                            ["name"] = "Total Time:",
+                            ["value"] = tostring(ttime[2]) .. " ⏳",
+                            ["inline"] = true
+                        }, {
+                            ["name"] = "Current Gems:",
+                            ["value"] = tostring(game.Players.LocalPlayer._stats.gem_amount.Value).." <:gem:997123585476927558>",
+                            ["inline"] = true
+                        }, {
+                            ["name"] = "Current Level:",
+                            ["value"] = tostring(game.Players.LocalPlayer.PlayerGui.spawn_units.Lives.Main.Desc.Level.Text).. " ✨",
+                            ["inline"] = true
+                        }
+					}
+				}
+			}
+		}
+
+		local porn = game:GetService("HttpService"):JSONEncode(data)
+
+		local headers = {["content-type"] = "application/json"}
+		request = http_request or request or HttpPost or syn.request or http.request
+		local sex = {Url = url, Body = porn, Method = "POST", Headers = headers}
+		warn("Sending webhook notification...")
+		request(sex)
+	end)
 end
 
 local function sell()
