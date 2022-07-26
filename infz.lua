@@ -101,7 +101,7 @@ end
 --Webhook sender
 local function webhook()
 	pcall(function()
-		local url = tostring(getgenv().weburl) --webhook
+		local url = tostring(getgenv().webhook) --webhook
 		print("webhook?")
 		if url == "" then
 			return
