@@ -92,7 +92,7 @@ end
 
 local function join() -- join teleporter
 local args = {
-    [1] = "_lobbytemplategreen14"
+    [1] = "_lobbytemplategreen15"
 }
 
 game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
@@ -189,7 +189,7 @@ end
 
 local function Create() -- Creates the map
 local args = {
-    [1] = "_lobbytemplategreen11",
+    [1] = "_lobbytemplategreen15",
     [2] = getgenv().act, -- ex 1,2,3 (LOWER THE NUMBER IF ITS TOO HARD)
     [3] = true,
     [4] = getgenv().dif --Hard mode for da exp
@@ -201,7 +201,7 @@ end
 
 local function start2() -- Starts the teleport
 local args = {
-    [1] = "_lobbytemplategreen11"
+    [1] = "_lobbytemplategreen15"
 }
 
 game:GetService("ReplicatedStorage").endpoints.client_to_server.request_start_game:InvokeServer(unpack(args))
